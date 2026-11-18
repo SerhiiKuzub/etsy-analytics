@@ -1,0 +1,10 @@
+pandas
+sqlalchemy
+psycopg2-binary
+python-dotenv
+requests
+faker
+streamlit
+plotly
+pytest
+pre-commit

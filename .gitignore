@@ -1,0 +1,28 @@
+# Секрети
+.env
+*.pem
+*.key
+secrets/
+tokens.json
+
+# Реальні дані магазину
+data/raw/
+data/processed/
+*.csv
+*.parquet
+*.duckdb
+*.xlsx
+*.pbix
+
+# Дозволяємо тільки синтетичні дані
+!data/sample/
+!data/sample/*.csv
+
+# Python
+__pycache__/
+.venv/
+*.pyc
+.ipynb_checkpoints/
+
+# Docker volumes
+pgdata/
