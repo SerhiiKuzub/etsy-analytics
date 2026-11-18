@@ -26,3 +26,10 @@ __pycache__/
 
 # Docker volumes
 pgdata/
+
+# Усі варіанти .env (резервні копії редакторів тощо), крім шаблону
+.env.*
+!.env.example
+*.save
+*.bak
+*~

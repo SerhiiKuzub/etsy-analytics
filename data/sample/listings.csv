@@ -1,0 +1,31 @@
+listing_id,title,price,currency,created_at,tags,views,favorites
+100000000,Product 01 (Mugs),34.38,USD,2024-05-06,handmade|unique|cozy|minimalist|eco friendly,1404,95
+100000001,Product 02 (Prints),24.98,USD,2024-06-08,boho|unique|personalized|vintage|gift,906,30
+100000002,Product 03 (Candles),23.01,USD,2023-12-27,vintage|custom|modern|unique|personalized,1730,89
+100000003,Product 04 (Jewelry),61.38,USD,2023-10-22,vintage|home decor|gift|modern|boho,4648,261
+100000004,Product 05 (Textile),52.24,USD,2024-06-30,boho|minimalist|handmade|gift|vintage,1581,113
+100000005,Product 06 (Stickers),6.72,USD,2023-12-08,modern|vintage|unique|minimalist|home decor,655,36
+100000006,Product 07 (Mugs),24.08,USD,2024-05-22,unique|personalized|minimalist|custom|eco friendly,2977,133
+100000007,Product 08 (Prints),23.71,USD,2023-07-21,vintage|custom|eco friendly|personalized|unique,2084,88
+100000008,Product 09 (Candles),23.55,USD,2024-04-27,gift|home decor|unique|handmade|eco friendly,5164,235
+100000009,Product 10 (Jewelry),55.26,USD,2023-10-23,boho|vintage|modern|cozy|personalized,1281,75
+100000010,Product 11 (Textile),48.39,USD,2024-05-06,minimalist|handmade|home decor|unique|boho,339,24
+100000011,Product 12 (Stickers),5.8,USD,2024-07-18,boho|handmade|minimalist|custom|cozy,314,14
+100000012,Product 13 (Mugs),35.65,USD,2023-06-19,gift|handmade|unique|home decor|minimalist,7144,249
+100000013,Product 14 (Prints),20.7,USD,2024-02-18,eco friendly|cozy|personalized|vintage|unique,5943,203
+100000014,Product 15 (Candles),14.32,USD,2023-07-26,boho|personalized|home decor|handmade|modern,1133,73
+100000015,Product 16 (Jewelry),27.62,USD,2024-02-14,boho|gift|unique|cozy|vintage,640,44
+100000016,Product 17 (Textile),37.66,USD,2024-10-12,handmade|gift|cozy|modern|minimalist,5110,134
+100000017,Product 18 (Stickers),4.33,USD,2024-07-02,eco friendly|home decor|unique|custom|modern,403,9
+100000018,Product 19 (Mugs),23.54,USD,2024-01-19,home decor|custom|vintage|gift|modern,399,22
+100000019,Product 20 (Prints),12.71,USD,2024-01-27,home decor|eco friendly|personalized|handmade|boho,1888,54
+100000020,Product 21 (Candles),22.18,USD,2023-07-20,eco friendly|handmade|vintage|boho|modern,756,52
+100000021,Product 22 (Jewelry),36.49,USD,2024-05-09,unique|personalized|home decor|gift|modern,1368,52
+100000022,Product 23 (Textile),45.34,USD,2024-01-19,unique|handmade|boho|minimalist|custom,1022,29
+100000023,Product 24 (Stickers),6.91,USD,2023-07-04,boho|custom|handmade|home decor|vintage,1906,143
+100000024,Product 25 (Mugs),29.58,USD,2024-07-24,boho|minimalist|custom|eco friendly|personalized,5313,159
+100000025,Product 26 (Prints),26.35,USD,2023-06-06,minimalist|gift|personalized|home decor|vintage,1252,46
+100000026,Product 27 (Candles),17.94,USD,2023-10-05,modern|home decor|unique|boho|personalized,2458,71
+100000027,Product 28 (Jewelry),31.51,USD,2023-10-01,handmade|boho|vintage|personalized|gift,120,3
+100000028,Product 29 (Textile),36.1,USD,2023-09-14,home decor|personalized|custom|boho|cozy,931,19
+100000029,Product 30 (Stickers),3.82,USD,2024-03-04,vintage|custom|cozy|modern|handmade,564,13
