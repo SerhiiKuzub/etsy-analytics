@@ -13,7 +13,7 @@ SEED = 42
 START = pd.Timestamp("2024-11-18")
 END = pd.Timestamp("2026-11-17")
 N_LISTINGS = 30
-N_BUYERS = 2500
+N_BUYERS = 7000
 OUT_DIR = Path(__file__).resolve().parents[2] / "data" / "sample"
 
 # категорія -> (мін. ціна, макс. ціна)
