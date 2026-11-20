@@ -33,3 +33,6 @@ pgdata/
 *.save
 *.bak
 *~
+
+# Єдиний дозволений Power BI-файл: демо на синтетичних даних
+!dashboard/powerbi/etsy_demo.pbix
