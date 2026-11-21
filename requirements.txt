@@ -9,3 +9,4 @@ plotly
 pytest
 pre-commit
 openpyxl
+scipy

@@ -79,7 +79,7 @@ def build_listings() -> pd.DataFrame:
                 "title": x["title"],
                 "price": money(x["price"]),
                 "currency": x["price"]["currency_code"],
-                "created_at": ts(x["created_timestamp"]),
+                "created_at": ts(x.get("original_creation_timestamp") or x["created_timestamp"]),
                 "tags": x.get("tags") or [],
                 "views": x.get("views"),
                 "favorites": x.get("num_favorers"),
