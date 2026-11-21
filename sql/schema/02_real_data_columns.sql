@@ -1,0 +1,3 @@
+ALTER TABLE core.orders   ADD COLUMN IF NOT EXISTS payment_method TEXT;
+ALTER TABLE core.fees     ADD COLUMN IF NOT EXISTS listing_id BIGINT;
+ALTER TABLE core.listings ADD COLUMN IF NOT EXISTS state TEXT;
