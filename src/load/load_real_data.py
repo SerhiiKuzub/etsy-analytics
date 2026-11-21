@@ -23,11 +23,22 @@ load_dotenv(ROOT / ".env")
 DB_NAME = os.getenv("REAL_DB_NAME", "etsy_real")
 PAYMENT_MATCH_DAYS = 3  # допуск між замовленням і платежем у журналі
 
-POSTAGE_USD = load_params()["postage_usd"]  # вартість пересилки для мами, за регіоном
+PARAMS = load_params()
+POSTAGE_PERIODS = sorted(PARAMS["postage_usd_periods"], key=lambda p: p["from"])
 EU = set("AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE".split())
+
 
 def region(country: str | None) -> str:
     return "US" if country == "US" else "EU" if country in EU else "OTHER"
+
+
+def postage_for(country: str | None, order_dt: datetime) -> float:
+    """Пересилка для мами за тарифом, що діяв на дату замовлення."""
+    rates = POSTAGE_PERIODS[0]
+    for period in POSTAGE_PERIODS:
+        if period["from"] <= order_dt.strftime("%Y-%m-%d"):
+            rates = period
+    return rates[region(country)]
 
 
 def read(path: Path) -> dict:
@@ -85,7 +96,8 @@ def build_orders(receipts: list[dict], salt: str):
 
         # Пересилку платить мама за кожне фізичне замовлення; цифрові не пересилаються
         all_digital = all(t.get("is_digital") for t in r["transactions"])
-        postage = 0.0 if all_digital else POSTAGE_USD[region(r.get("country_iso"))]
+        postage = 0.0 if all_digital else postage_for(
+            r.get("country_iso"), ts(r["created_timestamp"]))
 
         orders.append({
             "order_id": r["receipt_id"],
