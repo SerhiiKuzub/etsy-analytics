@@ -1,0 +1,4 @@
+{
+  "postage_usd": {"US": 5.00, "EU": 10.00, "OTHER": 8.00},
+  "packaging_usd": 0.20
+}

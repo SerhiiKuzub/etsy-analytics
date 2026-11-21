@@ -1,3 +1,6 @@
 ALTER TABLE core.orders   ADD COLUMN IF NOT EXISTS payment_method TEXT;
 ALTER TABLE core.fees     ADD COLUMN IF NOT EXISTS listing_id BIGINT;
 ALTER TABLE core.listings ADD COLUMN IF NOT EXISTS state TEXT;
+ALTER TABLE core.orders   ADD COLUMN IF NOT EXISTS discount_amount NUMERIC(10,2);
+ALTER TABLE core.orders   ADD COLUMN IF NOT EXISTS shipping_cost_est NUMERIC(10,2);
+ALTER TABLE core.product_costs ADD COLUMN IF NOT EXISTS packaging_cost NUMERIC(10,2) NOT NULL DEFAULT 0;

@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 from sqlalchemy import Text, create_engine, text
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.engine import URL
+from src.load.params import load_params
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw"
@@ -21,6 +22,12 @@ load_dotenv(ROOT / ".env")
 
 DB_NAME = os.getenv("REAL_DB_NAME", "etsy_real")
 PAYMENT_MATCH_DAYS = 3  # допуск між замовленням і платежем у журналі
+
+POSTAGE_USD = load_params()["postage_usd"]  # вартість пересилки для мами, за регіоном
+EU = set("AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE".split())
+
+def region(country: str | None) -> str:
+    return "US" if country == "US" else "EU" if country in EU else "OTHER"
 
 
 def read(path: Path) -> dict:
@@ -75,6 +82,11 @@ def build_orders(receipts: list[dict], salt: str):
     for r in receipts:
         assert r["grandtotal"]["divisor"] == 100, "очікуємо суми в центах"
         buyer = hashlib.sha256(f"{salt}:{r['buyer_user_id']}".encode()).hexdigest()[:16]
+
+        # Пересилку платить мама за кожне фізичне замовлення; цифрові не пересилаються
+        all_digital = all(t.get("is_digital") for t in r["transactions"])
+        postage = 0.0 if all_digital else POSTAGE_USD[region(r.get("country_iso"))]
+
         orders.append({
             "order_id": r["receipt_id"],
             "created_at": ts(r["created_timestamp"]),
@@ -84,13 +96,19 @@ def build_orders(receipts: list[dict], salt: str):
             "shipping_amount": money(r["total_shipping_cost"]),
             "currency": r["grandtotal"]["currency_code"],
             "payment_method": r["payment_method"],
+            "discount_amount": money(r["discount_amt"]),
+            "shipping_cost_est": postage,
         })
+        # Ціни в transactions до знижки, а subtotal уже зі знижкою:
+        # ділимо знижку між позиціями пропорційно їхній вартості
+        gross = sum(money(t["price"]) * t["quantity"] for t in r["transactions"])
+        factor = money(r["subtotal"]) / gross if gross else 1.0
         for t in r["transactions"]:
             items.append({
                 "order_id": r["receipt_id"],
                 "listing_id": t["listing_id"],
                 "quantity": t["quantity"],
-                "line_total": money(t["price"]) * t["quantity"],
+                "line_total": money(t["price"]) * t["quantity"] * factor,
             })
     items = (pd.DataFrame(items)
              .groupby(["order_id", "listing_id"], as_index=False)
