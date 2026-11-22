@@ -1,6 +1,5 @@
--- Видаляємо у зворотному порядку залежностей, щоб можна було змінювати набір колонок
-DROP VIEW IF EXISTS analytics.v_product_margin;
-DROP VIEW IF EXISTS analytics.v_item_facts;
+-- CASCADE прибирає й залежні view; їх відтворюють наступні файли моделей
+DROP VIEW IF EXISTS analytics.v_item_facts CASCADE;
 
 -- Факт на рівні позиції замовлення: єдине джерело для всіх розрахунків
 CREATE VIEW analytics.v_item_facts AS
@@ -34,7 +33,8 @@ calc AS (
         o.buyer_hash,
         l.listing_id,
         l.title,
-        coalesce(substring(l.title from '\((.*)\)'), 'Uncategorized') AS category,
+        CASE WHEN l.title LIKE '%(%)' THEN regexp_replace(l.title, '^.*\((.*)\)$', '\1')
+            ELSE 'Uncategorized' END                                       AS category,
         i.quantity,
         i.revenue,
         coalesce(df.fees, 0)
