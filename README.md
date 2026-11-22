@@ -1,6 +1,7 @@
 # Etsy Shop Analytics
 
 [Українська версія](README.uk.md)
+**Live demo:** https://etsy-shop-analytics.streamlit.app/ (synthetic data)
 
 An end-to-end analytics project built around a small Etsy shop: data in PostgreSQL, SQL models, a Streamlit dashboard and a Power BI report on top of the same data.
 
