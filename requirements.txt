@@ -10,3 +10,4 @@ pytest
 pre-commit
 openpyxl
 scipy
+duckdb

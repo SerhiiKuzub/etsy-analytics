@@ -2,41 +2,21 @@
 
 Запуск (з кореня проекту): streamlit run dashboard/app.py
 """
-import os
 from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
-from dotenv import load_dotenv
-from sqlalchemy import create_engine
-from sqlalchemy.engine import URL
-
-ROOT = Path(__file__).resolve().parents[1]
-load_dotenv(ROOT / ".env")
+from data_layer import read_df, use_demo
 
 st.set_page_config(page_title="Etsy Shop Analytics", page_icon="📊", layout="wide")
-
-
-@st.cache_resource
-def get_engine():
-    """Одне підключення до БД на весь час роботи дашборду."""
-    url = URL.create(
-        "postgresql+psycopg2",
-        username=os.environ["POSTGRES_USER"],
-        password=os.environ["POSTGRES_PASSWORD"],
-        host=os.getenv("POSTGRES_HOST", "localhost"),
-        port=int(os.getenv("POSTGRES_PORT", "5432")),
-        database=os.environ["POSTGRES_DB"],
-    )
-    return create_engine(url)
 
 
 @st.cache_data(ttl=600)
 def load_facts() -> pd.DataFrame:
     """Читає факт-view та приводить типи (Postgres NUMERIC -> float, дати -> datetime)."""
-    df = pd.read_sql("SELECT * FROM analytics.v_item_facts", get_engine())
+    df = read_df("SELECT * FROM analytics.v_item_facts")
     for col in ["quantity", "revenue", "etsy_fees", "cogs", "profit"]:
         df[col] = df[col].astype(float)
     df["order_date"] = pd.to_datetime(df["order_date"])
